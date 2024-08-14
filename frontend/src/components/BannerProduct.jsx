@@ -54,7 +54,7 @@ console.log(interval)
   }, [currntImg]); // Dependency array
 
   return (
-    <div className="container  mx-auto px-5">
+    <div className="container  mx-auto px-4">
       <div className="h-60 md:h-72 w-full  bg-slate-200 rounded-sm text-white relative ">
         <div className="absolute z-10 w-full h-full md:flex items-center hidden">
           <div className=" flex justify-between w-full text-black text-2xl ">

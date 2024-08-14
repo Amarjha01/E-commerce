@@ -23,6 +23,7 @@ import uploadProductController from '../controller/uploadProduct.js';
 import getProductController from '../controller/getProduct.js';
 import updatedProductDetailController from '../controller/updateProductDetail.js';
 import getCategoryProduct from '../controller/product/getcategoryProduct.js';
+import CategoryWiseProduct from '../controller/product/CategoryWiseProduct.js'
 // Set up routes
 router.post('/signup', usersignupcontroller);
 router.post('/signin', userSignInController);
@@ -34,5 +35,6 @@ router.post('/upload-product', authtoken, uploadProductController);
 router.get('/get-product', getProductController);
 router.post('/update-product-details', updatedProductDetailController);
 router.get('/get-category-product', getCategoryProduct);
+router.post('/category-wise-product', CategoryWiseProduct);
 
 export default router;
