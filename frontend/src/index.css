@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+/* Prevent horizontal overflow */
+body {
+    overflow-x: hidden;
+}
+
+/* The CSS code `*::-webkit-scrollbar { display: none; }` is targeting the default scrollbar in webkit
+browsers (such as Chrome and Safari) and hiding it from view. This is a way to customize the
+appearance of scrollbars on a webpage. */
+
+*::-webkit-scrollbar{
+    display: none;
+  }
+*body{
+    /* scrollbar-width: none; */
+}

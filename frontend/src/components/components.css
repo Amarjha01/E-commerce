@@ -1,0 +1,138 @@
+/* ....................header.................. */
+
+.header {
+    height: 60px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    justify-content: space-evenly;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.707);
+  }
+  
+  .logosvg {
+    height: 55px;
+    width: 120px;
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+  }
+  
+  .search {
+    height: 39px;
+    width: 470px;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+  }
+  
+  .headerinput {
+    width: 400px;
+    height: 36px;
+    padding: 5px;
+    outline: none;
+    border-radius: 25px 0px 0px 25px;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+  }
+  
+  .searchicon {
+    height: 25px;
+    width: 35px;
+  }
+  
+  .button {
+    height: 36px;
+    width: 60px;
+    border-radius: 0px 25px 25px 0px;
+    outline: none;
+    background-color: red;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+  }
+  
+  .headerinput:focus,
+  .headerinput:focus + .button {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.407);
+  }
+  
+  .button:focus {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.407);
+  }
+  
+  @media (max-width: 840px) {
+    .search {
+      width: 270px;
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .search {
+      display: none;
+    }
+  }
+  
+  .user-cart-login {
+    display: flex;
+    position: absolute;
+    right: 30px;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .usericon {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+  }
+  
+  /* .cart {
+    display: flex;
+    height: 50px;
+    width: 30px;
+    align-items: center;
+  }
+  
+  .carticon {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .cartno {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    font-size: 18px;
+    font-weight: 900;
+    color: rgb(255, 255, 255);
+    left: 60px;
+    top: 0px;
+    border-radius: 50%;
+    cursor: pointer;
+  } */
+  
+  .loginbtn {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    height: 30px;
+    width: 70px;
+    border-radius: 25px;
+    outline: none;
+    background-color: rgb(255, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+  }
+  
+  .loginbtn:hover {
+    background-color: rgb(149, 3, 3);
+  }
+  
+
+  /* ..................footer........................ */
+
+
