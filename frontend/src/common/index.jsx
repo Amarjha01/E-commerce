@@ -44,7 +44,7 @@ const summaryApi = {
     },
     CategoryWiseProduct: { 
         url: `${backendDomain}/api/category-wise-product`,
-        method: 'GET'
+        method: 'post'
     },
 }
 

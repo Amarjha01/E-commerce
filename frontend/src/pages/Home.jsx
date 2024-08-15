@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <CategoryList />
       <BannerProduct/>
-      <HorizontalProductCard category={'airpods'}  heading={'Top airpods'}/>
+      <HorizontalProductCard category={'airpodes'}  heading={'Top airpodes'}/>
     </div>
   )
 }

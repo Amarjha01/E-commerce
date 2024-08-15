@@ -93,7 +93,7 @@ console.log(interval)
           {MobileBanner.map((el, index) => {
             return (
               <div
-                className="h-full w-full min-h-full min-w-full transition-all"
+                className="h-full w-full min-h-full min-w-full transition-all" key={index+1}
                 style={{ transform: `translatex(-${currntImg * 100}%)` }}
               >
                 <img
