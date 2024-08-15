@@ -1,10 +1,15 @@
+import { TiShoppingCart } from "react-icons/ti";
+
 import React, { useState, useEffect } from "react";
+import Currency from '../helpers/Currency.jsx'
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
 const HorizontalProductCard = ({ category, heading }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const loadingList = new Array(13).fill(null);
 
+
+  
   const fetchData = async () => {
     setLoading(true);
     const categoryWiseProduct = await fetchCategoryWiseProduct(category);
@@ -16,21 +21,35 @@ const HorizontalProductCard = ({ category, heading }) => {
     fetchData();
   }, []);
 
+
+
   return (
-    <div className="container bg-yellow-600 mx-auto px-4 py-2 my-6">
+    <div className="container  mx-auto px-4 py-2 my-6">
       <h2 className="text-2xl font-semibold py-4">{heading}</h2>
+
+      <div className="flex items-center gap-4 md:gap-6 overflow-scroll">
       {data.map((product, index) => {
         return (
           <div
-            className="w-full max-w-[280px] md:max-w-[320px] min-w-[280px] md:min-w-[320px] h-36 bg-white rounded-sm shadow-md flex"
+            className="w-full max-w-[280px] md:max-w-[320px] min-w-[280px] md:min-w-[320px] h-36 bg-white rounded-sm shadow-lg flex cursor-pointer"
             key={index + 1}
           >
-            <div className="bg-slate-200 h-full p-2 min-w-[120px] md:min-w-[145px]">
-              <img src={product.productImage[0]} alt="" />
+            <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
+              <img src={product.productImage[0]} alt="" className="h-full hover:scale-125 transition-all  "/>
             </div>
+           <div className="p-4 grid">
+           <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black ">{product?.productName}</h2>
+           <p className="capitalize text-slate-500">{product?.category}</p>
+           <div className="flex gap-3">
+            <p className="text-green-600 font-medium ">{Currency(product?.sellingprice)}</p>
+            <p className="text-slate-300 line-through">{Currency(product?.price)}</p>
+           </div>
+           <button className="bg-red-500 hover:bg-red-700 py-0.5 px-3 rounded-full text-white text-center text-sm hover:scale-110 transition-all">Add to cart</button>
+           </div>
           </div>
         );
       })}
+      </div>
     </div>
   );
 };

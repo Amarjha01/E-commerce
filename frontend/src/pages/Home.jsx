@@ -5,7 +5,7 @@ import HorizontalProductCard from '../components/HorizontalProductCard.jsx'
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-slate-100 h-100vh'>
       <CategoryList />
       <BannerProduct/>
       <HorizontalProductCard category={'airpodes'}  heading={'Top airpodes'}/>
