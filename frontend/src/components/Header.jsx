@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <header>
+      <header className="fixed z-40">
         <div className="header">
           <div className="logosvg">
             <Link to={"/"}>

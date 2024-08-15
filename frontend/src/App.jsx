@@ -39,7 +39,7 @@ if(dataApi.success){
         <ToastContainer />
        
           <Header />
-         <main className="min-h-[calc(100vh-118px)]">
+         <main className="min-h-[calc(100vh-118px)] pt-14">
          <Outlet />
          </main>
           <Footer />
