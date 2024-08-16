@@ -10,6 +10,7 @@ import AdminPanel from "../pages/AdminPanel";
 import AllUsers from "../pages/AllUsers";
 import Allproducts from "../pages/AllProducts";
 import CategoryProduct from '../pages/CategoryProduct'
+import ProductDetails from '../pages/ProductDetails'
 
 import App from "../App";
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "category-product/:categoryName",
         element: <CategoryProduct />,
+      },
+      {
+        path: "Product/:id",
+        element: <ProductDetails />,
       },
     ],
   },

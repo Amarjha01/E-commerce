@@ -1,8 +1,12 @@
 import { TiShoppingCart } from "react-icons/ti";
 
+import { Link } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import Currency from '../helpers/Currency.jsx'
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
+import addToCart from "../helpers/addToCart";
+
 const VerticalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,7 +59,7 @@ const VerticalCardProduct = ({ category, heading }) => {
         ) : (
             data.map((product, index) => {
                 return (
-                  <div
+                  <Link to={"product/" + product?._id}
                     className="w-full max-w-[280px] md:max-w-[320px] min-w-[280px] md:min-w-[320px]  bg-white rounded-sm shadow-lg  cursor-pointer"
                     key={index + 1}
                   >
@@ -69,9 +73,11 @@ const VerticalCardProduct = ({ category, heading }) => {
                     <p className="text-green-600 font-medium ">{Currency(product?.sellingprice)}</p>
                     <p className="text-slate-300 line-through">{Currency(product?.price)}</p>
                    </div>
-                   <button className="bg-red-500 hover:bg-red-700 py-1 px-3 rounded-full text-white text-center text-sm hover:scale-105 transition-all">Add to cart</button>
+                   <button className="bg-red-500 hover:bg-red-700 py-1 px-3 rounded-full text-white text-center text-sm hover:scale-105 transition-all"onClick={(e) => {
+                        addToCart(e, product?._id);
+                      }}>Add to cart</button>
                    </div>
-                  </div>
+                  </Link>
                 );
               })
         )
