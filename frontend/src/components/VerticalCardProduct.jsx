@@ -64,7 +64,7 @@ const VerticalCardProduct = ({ category, heading }) => {
                     key={index + 1}
                   >
                     <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center">
-                      <img src={product.productImage[0]} alt="" className="h-full hover:scale-110 transition-all  "/>
+                      <img src={product.productImage[0]} alt="" className="h-full hover:scale-110 transition-all mix-blend-multiply "/>
                     </div>
                    <div className="p-4 grid gap-2">
                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black ">{product?.productName}</h2>

@@ -59,7 +59,7 @@ const HorizontalProductCard = ({ category, heading }) => {
                     <img
                       src={product.productImage[0]}
                       alt=""
-                      className="h-full hover:scale-125 transition-all  "
+                      className="h-full hover:scale-125 transition-all mix-blend-multiply  "
                     />
                   </div>
                   <div className="p-4 grid">
