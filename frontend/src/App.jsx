@@ -29,8 +29,16 @@ if(dataApi.success){
     }
   };
 
+const fetchUserAddToCart = async () => {
+  const response = await fetch(summaryApi.countaddtocartproduct.url);
+  const dataApi = await response.json();
+  console.log("dataApi",dataApi);
+}
+
   useEffect(() => {
     fetchUserDetails();
+    // user cart count
+    fetchUserAddToCart()
   }, []);
 
   return (
