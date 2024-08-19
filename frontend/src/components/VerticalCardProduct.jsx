@@ -2,16 +2,22 @@ import { TiShoppingCart } from "react-icons/ti";
 
 import { Link } from "react-router-dom";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Currency from '../helpers/Currency.jsx'
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
 import addToCart from "../helpers/addToCart";
+import Context from "../context/index.js";
 
 const VerticalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const loadingList = new Array(13).fill(null);
 
+  const {fetchUserAddToCart} = useContext(Context);
+  const handleAddToCart = async (e,id) => {
+    await addToCart(e,id);
+    await fetchUserAddToCart();
+  }
 
   
   const fetchData = async () => {

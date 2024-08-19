@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Currency from "../helpers/Currency.jsx";
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
 import addToCart from "../helpers/addToCart";
+import Context from "../context/index.js";
 const HorizontalProductCard = ({ category, heading }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,12 @@ const HorizontalProductCard = ({ category, heading }) => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const {fetchUserAddToCart} = useContext(Context);
+  const handleAddToCart = async (e,id) => {
+    await addToCart(e,id);
+    await fetchUserAddToCart();
+  }
 
   return (
     <div className="container  mx-auto px-4 py-4 ">

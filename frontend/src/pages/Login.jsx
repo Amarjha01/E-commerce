@@ -15,7 +15,7 @@ const Login = () => {
         email:'',
         password:''
     })
-    const {fetchUserDetails} = useContext(context);
+    const {fetchUserDetails,fetchUserAddToCart} = useContext(context);
     // console.log('generalContext:', fetchUserDetails());
 const handleOnChange =(e) =>{
     const{name,value} = e.target;
@@ -44,6 +44,7 @@ if(dataApi.success){
     toast.success(dataApi.message);
     navigate('/');
     fetchUserDetails();
+    fetchUserAddToCart()
 }else{
     toast.error(dataApi.message);
 }

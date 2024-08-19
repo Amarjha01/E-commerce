@@ -3,6 +3,7 @@ import addToCartModel from "../../models/cartProductModel.js";
 const countAddToCartProduct = async (req, res) => {
 try {
     const currentUser = req.userID;
+   
     if (!currentUser) {
         return res.status(400).json({
             message: "User ID is required",
@@ -10,9 +11,10 @@ try {
             success: false
         });
     }
-console.log("currentUser",currentUser);
+
+// console.log("currentUser from count",currentUser);
     const countProduct = await  addToCartModel.countDocuments({
-        userID: currentUser
+        userId : currentUser
 
     });
 
@@ -20,6 +22,7 @@ console.log("currentUser",currentUser);
         data: {
             count: countProduct
         },
+        message:'count fetched sucessfully' ,
         error: false,
         success: true
     })

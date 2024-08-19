@@ -4,8 +4,8 @@ async function  userdetailcontroller(req, resp, next){
 try {
     const token = req.cookies?.token || req.headers; //?.authorization?.split(' ')[1]
 
-    console.log('token:', token)
-    console.log('userID:', req.userID)
+    console.log('token-from-userdetail:', token)
+    // console.log('userID-from-userdetail:', req.userID)
     const user = await usermodel.findById(req.userID);
     console.log('user:', user)
     resp.status(200).json({

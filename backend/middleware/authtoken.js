@@ -4,14 +4,16 @@ async function authtoken(req, resp , next) {
   try {
     const token =
       req.cookies?.token ;
+     
     if (!token) {
       return resp.status(200).json({
         message: "please login",
-        // message: "user not login",
         error: true,
         success: false,
       });
     }
+  // console.log("token-from-auth:" , token)
+    
     jwt.verify(token, process.env.TOKEN_SECRET_KEY, function(err, decoded) {
       console.log(err);
       console.log("decoded",decoded);

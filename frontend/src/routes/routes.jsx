@@ -11,6 +11,7 @@ import AllUsers from "../pages/AllUsers";
 import Allproducts from "../pages/AllProducts";
 import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
+import Cart from '../pages/Cart'
 
 import App from "../App";
 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "Admin-panel",

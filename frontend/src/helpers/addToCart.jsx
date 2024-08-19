@@ -1,5 +1,7 @@
 import summaryApi from '../common/index.jsx';
 import {toast} from 'react-toastify';
+// import {useContext} from 'react';
+// import Context from '../context/index.js';
 const addToCart = async (e,id) => {
   e.stopPropagation();
  e?.preventDefault();
@@ -18,6 +20,7 @@ const responseData = await fetchCart.json();
 
 if(responseData.success){
   toast.success(responseData.message);
+  // fetchUserAddToCart();
 }else if(responseData.warning){
   toast.warning(responseData.message);
 } else{

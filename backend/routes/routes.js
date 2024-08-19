@@ -27,6 +27,7 @@ import CategoryWiseProduct from '../controller/product/CategoryWiseProduct.js'
 import productDetails from '../controller/product/getProductDetails.js';
 import addToCartController from '../controller/user/addToCart.js';
 import countAddToCartProduct from '../controller/user/countAddToCartProduct.js';
+import viewAddToCart from '../controller/user/viewAddToCart.js'
 // Set up routes
 router.post('/signup', usersignupcontroller);
 router.post('/signin', userSignInController);
@@ -42,5 +43,6 @@ router.post('/category-wise-product', CategoryWiseProduct);
 router.post('/product-details', productDetails);
 router.post('/addtocart',authtoken, addToCartController);
 router.get('/countaddtocartproduct',authtoken, countAddToCartProduct);
+router.get('/cartDetail',authtoken, viewAddToCart);
 
 export default router;

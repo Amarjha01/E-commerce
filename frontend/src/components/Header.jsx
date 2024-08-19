@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
@@ -9,8 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import role from "../common/Rolee";
+import Context from "../context/index";
 
 const Header = () => {
+  const context = useContext(Context);
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
   const handleLogout = async () => {
@@ -28,6 +30,7 @@ const Header = () => {
       toast.error(data.err);
     }
   };
+  console.log('header add to cart count:', context.cartProductCount)
   const [menueDisplay, setMenueDisplay] = React.useState(false);
 
   return (
@@ -82,13 +85,20 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <div className="cart relative left-8 h-14 w-8 flex">
+            {
+              user?._id && (
+                <>
+            <Link to={'/cart'} className="cart relative left-8 h-14 w-8 flex">
                 <MdShoppingCart className="carticon cursor-pointer h-14 w-14" />
-            </div>
-            <span className="flex relative bottom-4 left-1 h-6 w-6 rounded-full bg-red-600 justify-center ">
-              <p className="cursor-pointer font-bold text-white">0</p>
+            </Link>
             
-              </span>
+                <Link to={'/cart'} className="flex relative bottom-4 left-1 h-6 w-6 rounded-full bg-red-600 justify-center ">
+                <p className="cursor-pointer font-bold text-white">{context?.cartProductCount}</p>
+                </Link>
+                </>
+              )
+            }
+           
             <div>
               {user ? (
                  <Link to={"/login"}>
