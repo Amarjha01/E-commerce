@@ -10,6 +10,7 @@
 /* Prevent horizontal overflow */
 body {
     overflow-x: hidden;
+    background-color: #f2f6fa;
 }
 
 /* The CSS code `*::-webkit-scrollbar { display: none; }` is targeting the default scrollbar in webkit

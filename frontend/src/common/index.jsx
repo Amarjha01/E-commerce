@@ -62,6 +62,10 @@ const summaryApi = {
         url: `${backendDomain}/api/cartDetail`,
         method: 'get'
     },
+    updateCartProductQuantity: {
+        url: `${backendDomain}/api/updateCartProductQuantity`,
+        method: 'post'
+    },
 }
 
 export default summaryApi;

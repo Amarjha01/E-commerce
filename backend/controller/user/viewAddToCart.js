@@ -1,26 +1,27 @@
-import Cart from '../../models/cartProductModel.js';
+import Cart from "../../models/cartProductModel.js";
 
 const viewAddToCart = async (req, res) => {
-    try {
-        const currentUser = req.userId;
+  try {
+    const currentUser = req.userID;
+    console.log("currentUser:", currentUser);
+    const cartDetails = await Cart.find({
+      userId: currentUser,
+    }).populate("productId");
 
-        const cartDetails = await Cart.findOne({ userId: currentUser });
-
-        res.status(200).json({
-            message: 'Cart details fetched successfully',
-            success: true,
-            error: false,
-            data: cartDetails,
-        })
-        console.log("cartDetails:" , cartDetails);
-    } catch (error) {
-        res.status(500).json({ 
-            message: error?.message || error,
-            sucess: false ,
-            error: true
-        });
-        
-    }
+    res.status(200).json({
+      message: "Cart details fetched successfully",
+      success: true,
+      error: false,
+      data: cartDetails,
+    });
+    console.log("cartDetails:", cartDetails);
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || error,
+      sucess: false,
+      error: true,
+    });
+  }
 };
 
 export default viewAddToCart;
