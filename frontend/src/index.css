@@ -20,6 +20,3 @@ appearance of scrollbars on a webpage. */
 *::-webkit-scrollbar{
     display: none;
   }
-*body{
-    /* scrollbar-width: none; */
-}

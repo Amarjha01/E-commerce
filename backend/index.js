@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173/',
+  origin: process.env.FRONTEND_URL || 'http://localhost:4173/',
   // origin: process.env.FRONTEND_URL || `http://192.168.45.146:5173`, 
   
   credentials: true
