@@ -1,0 +1,18 @@
+# Ignore environment files
+.env
+E-COMMERCE/backend/.env
+E-COMMERCE/frontend/.env
+
+# Ignore node_modules directories
+node_modules/
+E-COMMERCE/backend/node_modules/
+E-COMMERCE/frontend/node_modules/
+
+# Ignore Git ignore files
+.gitignore
+E-COMMERCE/backend/.gitignore
+E-COMMERCE/frontend/.gitignore
+
+# Ignore specific files
+impdata.txt
+.gitignore
