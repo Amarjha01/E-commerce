@@ -25,27 +25,32 @@
 # # Command to run Nginx
 # CMD ["nginx", "-g", "daemon off;"]
 
-# Use the official Node.js image as the base image for the build stage
+# Stage 1: Build the application
 FROM node:20.11.1 AS build
 
-# Set the working directory inside the container
+# Set the working directory to /app inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json (if available) to the working directory
+# Copy package.json and package-lock.json (if it exists)
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the frontend code and build the Vite app
+# Copy the rest of the application code
 COPY . .
+
+# Build the application
 RUN npm run build
 
-# Use the official Nginx image as the base image for the production stage
+# Stage 2: Serve the application using Nginx
 FROM nginx:alpine
 
-# Copy the build output from the previous stage to the Nginx web root
+# Copy the built application from the previous stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80 for the Nginx server
+# Expose port 80
 EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
