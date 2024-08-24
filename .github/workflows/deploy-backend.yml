@@ -1,10 +1,10 @@
-name: Deploy Backend to Elastic Beanstalk
+name: Deploy Backend to Docker Hub and Elastic Beanstalk
 
 on:
   push:
     branches:
       - main
-      - backend  # Adjust this if you want to deploy from a different branch.
+      - backend
 
 jobs:
   deploy:
@@ -19,6 +19,7 @@ jobs:
       with:
         node-version: '20.11.1'
 
+<<<<<<< HEAD
     - name: Install AWS CLI v2
       run: |
         if ! command -v aws &> /dev/null; then
@@ -47,26 +48,60 @@ jobs:
       run: |
         aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
+=======
+>>>>>>> 1ba524cc00b42dbe11750acbfe59166e9a27b615
     - name: Build Docker image
       run: |
-        docker build -t my-backend-app .
+        docker build -t my-backend-app -f backend/Dockerfile backend
+
+    - name: Log in to Docker Hub
+      env:
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      run: |
+        echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin
 
     - name: Tag Docker image
-      env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       run: |
-        docker tag my-backend-app:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
+        docker tag my-backend-app:latest amarjha01/electramart:latest
 
-    - name: Push Docker image to ECR
-      env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    - name: Push Docker image to Docker Hub
       run: |
-        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
+        docker push amarjha01/electramart:latest
 
+<<<<<<< HEAD
+=======
+    - name: Install AWS Elastic Beanstalk CLI
+      run: |
+        sudo pip install awsebcli
+
+    - name: Prepare source bundle for Elastic Beanstalk
+      run: |
+        # Create a temporary directory for deployment
+        mkdir -p eb-deploy
+        # Copy Dockerfile and all backend files to the deployment directory
+        cp backend/Dockerfile eb-deploy/Dockerfile
+        cp -r backend/* eb-deploy/
+        # Ensure Dockerfile is at the root of the deployment directory
+        cd eb-deploy
+        zip -r ../app.zip .  # Zip the deployment directory
+
+>>>>>>> 1ba524cc00b42dbe11750acbfe59166e9a27b615
     - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ap-south-1
       run: |
+<<<<<<< HEAD
         eb init -p docker my-backend-app --region ap-south-1
         eb use my-backend-app-env
         eb deploy my-backend-app-env
+=======
+        # Initialize Elastic Beanstalk environment
+        eb init -p docker my-backend-app --region $AWS_REGION
+        # Ensure environment is correctly set
+        eb use my-backend-app-env
+        # Deploy the prepared application bundle
+        eb deploy --staged
+>>>>>>> 1ba524cc00b42dbe11750acbfe59166e9a27b615
