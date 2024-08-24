@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-backend-app -f backend/Dockerfile backend
+        docker build -t my-backend-app -f Dockerfile .
 
     - name: Log in to Docker Hub
       env:
@@ -45,7 +45,7 @@ jobs:
     - name: Prepare source bundle for Elastic Beanstalk
       run: |
         mkdir -p eb-deploy
-        cp backend/Dockerfile eb-deploy/Dockerfile
+        cp Dockerfile eb-deploy/Dockerfile
         cp -r backend/* eb-deploy/
         cd eb-deploy
         zip -r ../app.zip .
