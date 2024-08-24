@@ -23,12 +23,12 @@ jobs:
       run: |
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
         unzip awscliv2.zip
-        sudo ./aws/install --update   # Added --update flag to avoid reinstallation error
+        sudo ./aws/install
 
     - name: Log in to Amazon ECR
       env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}  # Store AWS account ID in secrets
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       run: |
         aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
@@ -38,24 +38,26 @@ jobs:
 
     - name: Tag Docker image
       env:
-        AWS_REGION: us-west-2
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
       run: |
         docker tag my-backend-app:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
 
     - name: Push Docker image to ECR
       env:
-        AWS_REGION: us-west-2
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
       run: |
         docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
 
+    - name: Configure AWS CLI for Elastic Beanstalk
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
     - name: Deploy to Elastic Beanstalk
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ap-south-1  # Ensure this matches your desired AWS region
       run: |
         eb init -p docker my-backend-app --region $AWS_REGION
-        eb use my-backend-app-env   # Ensure you're using the correct environment
         eb deploy my-backend-app-env
