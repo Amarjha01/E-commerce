@@ -1,4 +1,4 @@
-name: Deploy Backend to Elastic Beanstalk
+name: Deploy Backend to Docker Hub and Elastic Beanstalk
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-backend-app -f Dockerfile .
+        docker build -t my-backend-app -f backend/Dockerfile backend
 
     - name: Log in to Docker Hub
       env:
@@ -32,15 +32,23 @@ jobs:
 
     - name: Tag Docker image
       run: |
-        docker tag my-backend-app:latest $DOCKER_HUB_USERNAME/electramart:latest
+        docker tag my-backend-app:latest amarjha01/electramart:latest
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker push $DOCKER_HUB_USERNAME/electramart:latest
+        docker push amarjha01/electramart:latest
 
     - name: Install AWS Elastic Beanstalk CLI
       run: |
         sudo pip install awsebcli
+
+    - name: Prepare source bundle for Elastic Beanstalk
+      run: |
+        mkdir -p eb-deploy
+        cp backend/Dockerfile eb-deploy/Dockerfile
+        cp -r backend/* eb-deploy/
+        cd eb-deploy
+        zip -r ../app.zip .
 
     - name: Deploy to Elastic Beanstalk
       env:
