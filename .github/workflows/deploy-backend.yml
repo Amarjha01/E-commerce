@@ -1,0 +1,51 @@
+name: Deploy Backend to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - main
+      - backend  # Adjust this if you want to deploy from a different branch.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.11.1'
+
+    - name: Install AWS CLI v2
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+
+    - name: Log in to Amazon ECR
+      run: |
+        aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin <aws-account-id>.dkr.ecr.us-west-2.amazonaws.com
+
+    - name: Build Docker image
+      run: |
+        docker build -t my-backend-app .
+
+    - name: Tag Docker image
+      run: |
+        docker tag my-backend-app:latest <aws-account-id>.dkr.ecr.us-west-2.amazonaws.com/my-backend-app:latest
+
+    - name: Push Docker image to ECR
+      run: |
+        docker push <aws-account-id>.dkr.ecr.us-west-2.amazonaws.com/my-backend-app:latest
+
+    - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ap-south-1
+      run: |
+        eb init -p docker my-backend-app --region $AWS_REGION
+        eb deploy my-backend-app-env
