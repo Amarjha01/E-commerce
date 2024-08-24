@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Help = () => {
   return (
-    <div>Help</div>
+    <div>contact for Help</div>
   )
 }
