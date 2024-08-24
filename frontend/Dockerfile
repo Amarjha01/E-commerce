@@ -31,13 +31,13 @@ FROM node:20.11.1 AS build
 # Set the working directory to /app inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if it exists)
+# Copy package.json and package-lock.json (if it exists) to /app
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application code to /app
 COPY . .
 
 # Build the application
