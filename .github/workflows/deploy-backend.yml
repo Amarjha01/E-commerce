@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - backend  # Adjust this if you want to deploy from a different branch.
+      - backend
 
 jobs:
   deploy:
@@ -13,11 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20.11.1'
 
     - name: Build Docker image
       run: |
@@ -32,11 +27,11 @@ jobs:
 
     - name: Tag Docker image
       run: |
-        docker tag my-backend-app:latest $DOCKER_HUB_USERNAME/my-backend-app:latest
+        docker tag my-backend-app:latest amarjha01/electramart:latest
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker push $DOCKER_HUB_USERNAME/my-backend-app:latest
+        docker push amarjha01/electramart:latest
 
     - name: Deploy to Elastic Beanstalk
       env:
