@@ -31,14 +31,23 @@ FROM node:20.11.1 AS build
 WORKDIR /app
 
 # Copy the frontend's package.json and package-lock.json/yarn.lock
-COPY package*.json ./
+COPY frontend/package*.json ./
 
 # Install the frontend dependencies
 RUN npm install
 
 # Copy the rest of the frontend code and build the Vite app
-COPY . .
+COPY frontend/ .
 RUN npm run build
 
-# We don't need a second stage for serving files with Nginx
-# The build output will be used directly for deployment
+# Stage 2: Serve the built files with Nginx
+FROM nginx:alpine
+
+# Copy the built files from the previous stage to Nginx's default html directory
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 to serve the frontend
+EXPOSE 80
+
+# Command to run Nginx
+CMD ["nginx", "-g", "daemon off;"]
