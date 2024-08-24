@@ -27,7 +27,7 @@ jobs:
 
     - name: Log in to Amazon ECR
       env:
-        AWS_REGION: us-west-2
+        AWS_REGION: ap-south-1
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}  # Store AWS account ID in secrets
       run: |
         aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
