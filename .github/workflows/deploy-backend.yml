@@ -14,6 +14,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.11.1'
+
     - name: Build Docker image
       run: |
         docker build -t my-backend-app -f backend/Dockerfile backend
@@ -32,6 +37,10 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         docker push amarjha01/electramart:latest
+
+    - name: Install AWS Elastic Beanstalk CLI
+      run: |
+        sudo pip install awsebcli
 
     - name: Deploy to Elastic Beanstalk
       env:
