@@ -49,7 +49,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-backend-app .
+        docker build -t backend .
 
     - name: Tag Docker image
       env:
