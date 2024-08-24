@@ -44,11 +44,12 @@ jobs:
 
     - name: Prepare source bundle for Elastic Beanstalk
       run: |
+        # Create a directory for deployment and copy necessary files
         mkdir -p eb-deploy
-        cp backend/Dockerfile eb-deploy/Dockerfile
-        cp -r backend/* eb-deploy/
+        cp backend/Dockerfile eb-deploy/Dockerfile  # Copy Dockerfile to root of deployment directory
+        cp -r backend/* eb-deploy/  # Copy backend files to deployment directory
         cd eb-deploy
-        zip -r ../app.zip .
+        zip -r ../app.zip .  # Zip the deployment directory
 
     - name: Deploy to Elastic Beanstalk
       env:
@@ -56,6 +57,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ap-south-1
       run: |
+        # Initialize Elastic Beanstalk environment and deploy the application
         eb init -p docker my-backend-app --region $AWS_REGION
         eb use my-backend-app-env
         eb deploy --staged
