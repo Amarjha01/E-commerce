@@ -1,4 +1,4 @@
-name: Deploy Backend to Elastic Beanstalk
+name: Deploy Backend to Docker Hub
 
 on:
   push:
@@ -19,54 +19,31 @@ jobs:
       with:
         node-version: '20.11.1'
 
-    - name: Install AWS CLI v2
-      run: |
-        if ! command -v aws &> /dev/null; then
-          echo "AWS CLI not found. Installing..."
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-        else
-          echo "AWS CLI is already installed. Updating..."
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --update
-        fi
-
-    - name: Configure AWS CLI
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-south-1
-
-    - name: Log in to Amazon ECR
-      env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      run: |
-        aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-
     - name: Build Docker image
       run: |
         docker build -t my-backend-app -f backend/Dockerfile backend
 
-    - name: Tag Docker image
+    - name: Log in to Docker Hub
       env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       run: |
-        docker tag my-backend-app:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
+        echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin
 
-    - name: Push Docker image to ECR
-      env:
-        AWS_REGION: ap-south-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    - name: Tag Docker image
       run: |
-        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend-app:latest
+        docker tag my-backend-app:latest $DOCKER_HUB_USERNAME/my-backend-app:latest
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker push $DOCKER_HUB_USERNAME/my-backend-app:latest
 
     - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ap-south-1
       run: |
-        eb init -p docker my-backend-app --region ap-south-1
+        eb init -p docker my-backend-app --region $AWS_REGION
         eb use my-backend-app-env
         eb deploy my-backend-app-env
