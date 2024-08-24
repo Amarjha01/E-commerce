@@ -32,13 +32,13 @@ FROM node:20.11.1 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if it exists) to /app
-COPY package*.json ./
+COPY frontend/package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code to /app
-COPY . .
+COPY frontend/ .
 
 # Build the application
 RUN npm run build

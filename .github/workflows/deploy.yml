@@ -24,7 +24,7 @@ jobs:
     - name: Extract built files
       run: |
         mkdir -p frontend-build
-        docker run --rm -v $(pwd)/frontend-build:/output frontend-build cp -r /app/dist/* /output
+        docker run --rm -v $(pwd)/frontend-build:/output frontend-build cp -r /usr/share/nginx/html/* /output
 
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
