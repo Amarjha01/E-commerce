@@ -8,10 +8,12 @@ import router from "./routes/routes.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
 // Middleware
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.FRONTEND_URL2, process.env.FRONTEND_URL3];
-
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL2,
+  'http://electramart-bucket.s3-website.ap-south-1.amazonaws.com'
+];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -21,9 +23,13 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
-console.log(process.env.FRONTEND_URL, process.env.FRONTEND_URL2)
+
 app.use(express.json());
 app.use(cookieParser())
 
