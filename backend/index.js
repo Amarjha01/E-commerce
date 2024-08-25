@@ -10,7 +10,8 @@ const PORT = process.env.PORT || 5000;
 
 
 // Middleware
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.FRONTEND_URL2];
+const allowedOrigins = [process.env.FRONTEND_URL, process.env.FRONTEND_URL2, process.env.FRONTEND_URL3];
+
 
 app.use(cors({
   origin: function (origin, callback) {
