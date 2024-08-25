@@ -3,6 +3,7 @@ import signin from '../asset/signin.gif'
 import { Link ,  useNavigate} from 'react-router-dom';
 import { toast } from "react-toastify";
 import context from '../context/index.js';
+import summaryApi from '../common/index.jsx';
 import './pages.css'
 
 
@@ -29,9 +30,9 @@ const handleOnChange =(e) =>{
 
 const handleSubmit = async (e) =>{
     e.preventDefault();
-    const dataResponse = await fetch('http://localhost:5000/api/signin',{
-    // const dataResponse = await fetch('http://192.168.45.146:5000/api/signin',{
-        method:"post",
+    const dataResponse = await fetch(summaryApi.signIn.url,{
+  
+        method:summaryApi.signIn.method,
         credentials:'include',
         headers:{
             'Content-Type':'application/json'
