@@ -1,4 +1,4 @@
-const backendDomain = 'http://localhost:5000';
+const backendDomain = 'http://my-backend-app-env.eba-qrjj9aqa.ap-south-1.elasticbeanstalk.com';
 // const backendDomain = 'http://192.168.45.146:5000';
 
 const summaryApi = {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import signin from "../asset/signin.gif";
 import { Link, useNavigate } from "react-router-dom";
+import summaryApi from "../common/index.jsx"; 
 
 import "./pages.css";
 
@@ -34,8 +35,8 @@ const signup = () => {
     e.preventDefault();
 
     if (data.password === data.confirmpassword) {
-      const dataResponse = await fetch("http://localhost:5000/api/signup", {
-        method: "post",
+      const dataResponse = await fetch(summaryApi.signUp.url, {
+        method: summaryApi.signUp.method,
         headers: {
           "Content-Type": "application/json",
         },
