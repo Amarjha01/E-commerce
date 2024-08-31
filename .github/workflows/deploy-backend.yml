@@ -57,5 +57,5 @@ jobs:
         AWS_REGION: ap-south-1
       run: |
         eb init -p docker my-backend-app --region $AWS_REGION
-        eb use my-backend-app-env
+        eb use my-backend-app-env-1
         eb deploy

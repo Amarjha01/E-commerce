@@ -1,15 +1,4 @@
 
-// import express from 'express';
-
-// const router = express.Router(); //ES Module
-
-// import usersignupcontroller from '../controller/usersignup';
-
-// router.post('/signup',router)
-
-
-// export default router;
-
 import express from 'express';
 import usersignupcontroller from '../controller/usersignup.js';
 import userSignInController from '../controller/usersignin.js';
