@@ -1,7 +1,4 @@
-# Ignore environment files
-.env
-E-COMMERCE/backend/.env
-E-COMMERCE/frontend/.env
+
 
 # Ignore node_modules directories
 node_modules/
