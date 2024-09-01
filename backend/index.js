@@ -10,10 +10,10 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  process.env.FRONTEND_URL2,
-  'http://localhost:5173',
-  'http://electramart-bucket.s3-website.ap-south-1.amazonaws.com'
+  // process.env.FRONTEND_URL,
+  // process.env.FRONTEND_URL2,
+  // 'http://localhost:5173',
+  'api.electramart.ninja'
 ];
 
 app.use(cors({
