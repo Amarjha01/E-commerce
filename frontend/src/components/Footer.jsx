@@ -4,7 +4,7 @@ const Footer = () => {
   return (
    <footer className='bg-slate-200'>
     <div className='container mx-auto p-4 '>
-      <p className='text-center'>Dynamic Website</p>
+      <p className='text-center'>Dynamic Website by amar</p>
     </div>
 
    </footer>
