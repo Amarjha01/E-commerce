@@ -1,5 +1,5 @@
 // const backendDomain = 'http://localhost:5000';
-const backendDomain = 'My-backend-app-env2.eba-4mphpw6h.ap-south-1.elasticbeanstalk.com';
+const backendDomain = 'api.electramart.ninja';
 
 
 const summaryApi = {
