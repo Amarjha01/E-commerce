@@ -13,7 +13,7 @@ const allowedOrigins = [
   // process.env.FRONTEND_URL,
   // process.env.FRONTEND_URL2,
   // 'http://localhost:5173',
-  'api.electramart.ninja'
+  'https://api.electramart.ninja'
 ];
 
 app.use(cors({
