@@ -45,7 +45,7 @@ jobs:
     - name: Prepare source bundle for Elastic Beanstalk
       run: |
         mkdir -p eb-deploy
-        cp Dockerfile eb-deploy/Dockerfile
+        cp Dockerrun.aws.json eb-deploy/
         cp -r backend/* eb-deploy/
         cd eb-deploy
         zip -r ../app.zip .

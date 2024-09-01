@@ -1,0 +1,18 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+      {
+        "name": "my-backend-app",
+        "image": "amarjha01/electramart:latest",
+        "essential": true,
+        "memory": 512,
+        "portMappings": [
+          {
+            "containerPort": 5000,
+            "hostPort": 5000
+          }
+        ]
+      }
+    ]
+  }
+  
