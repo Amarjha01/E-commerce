@@ -51,6 +51,7 @@ const Cart = () => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
+        _id : id,
         quantity: quantity + 1,
       }),
 
@@ -70,6 +71,7 @@ const Cart = () => {
           "content-type": "application/json",
         },
         body: JSON.stringify({
+          _id : id,
           quantity: quantity - 1,
         }),
   
@@ -110,13 +112,20 @@ const Cart = () => {
                     <div className="h-32 w-32 bg-slate-200">
                       <img src={product?.productId?.productImage[0]} alt="" className=" h-full w-full object-scale-down mix-blend-multiply"/>
                     </div>
-                    <div className=" px-4 py-2">
+                    
+                    <div className=" px-4 py-2 relative">
+                    <div className=" absolute right-3 text-red-600 rounded-full p-2 text-3xl hover:bg-red-600 hover:text-white cursor-pointer">
+                    <MdDelete />
+                    </div>
                       <h2 className="text-lg lg:text-2xl text-ellipsis line-clamp-1">{product?.productId?.productName}</h2>
                       <p className=" capitalize text-slate-500">{product?.productId?.category}</p>
                       <p className="text-green-700 font-medium text-lg ">{currency(product?.productId?.sellingprice)}</p>
                       <div className="flex items-center gap-3 mt-1">
+
                         <button onClick={()=>{decreseCartProductQuantity(product?._id,product?.quantity)}} className=" border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded">-</button>
+
                         <span>{product?.quantity}</span>
+
                         <button onClick={()=>{increseCartProductQuantity(product?._id,product?.quantity)}} className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded">+</button>
                       </div>
                     </div>

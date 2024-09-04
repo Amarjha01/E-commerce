@@ -72,12 +72,12 @@ const ProductDetails = () => {
   const similarProduct = data?.category;
 
   return (
-    <div className="conatainer mx-auto p-4">
-      <div className="min-h-[200px] flex flex-row  ">
+    <div className="conatainer mx-auto p-4 ">
+      <div className="min-h-[200px] flex lg:flex-row flex-col  ">
         {/* to display img */}
 
-        <div className="h-96 flex flex-col lg:flex-row-reverse gap-3 ">
-          <div className="h-[300px] w-[300px] relative lg:h-96 lg:w-96 bg-slate-200 mix-blend-multiply flex justify-center items-center">
+        <div className="h-[100vh-300px]  flex flex-col lg:flex-row-reverse gap-3 ">
+          <div className="h-[300px] w-[300px] relative lg:h-96 lg:w-96 bg-slate-200 mix-blend-multiply flex justify-center items-center ">
             {data.productImage[0] && (
               <img
                 src={activeImage}
@@ -90,7 +90,7 @@ const ProductDetails = () => {
           </div>
           {/* product zoom */}
           {zoomImage && (
-            <div className="hidden lg:block absolute min-w-[384px] min-h-[384px] bg-slate-200 left-[545px] overflow-hidden ">
+            <div className="hidden lg:block absolute min-w-[384px] min-h-[384px] bg-slate-200 left-[545px] ">
               <div
                 className=" min-h-[384px] min-w-[384px] scale-125  "
                 style={{
@@ -105,21 +105,21 @@ const ProductDetails = () => {
             </div>
           )}
 
-          <div className="h-full">
+          <div className="h-full ">
             {loading ? (
-              <div className="flex gap-2 lg:flex-col overflow-scroll h-full animate-pulse">
+              <div className="flex gap-2 lg:flex-col  h-full animate-pulse">
                 {productImageloading.map((el) => {
                   return (
-                    <div className="h-36 w-36 bg-slate-200 rounded "></div>
+                    <div className="h-36 w-36 bg-slate-200 rounded  "></div>
                   );
                 })}
               </div>
             ) : (
-              <div className="flex gap-2 lg:flex-col overflow-scroll h-full">
+              <div className="flex gap-2 lg:flex-col h-full w-full relative ">
                 {data?.productImage?.map((imageUrl, index) => {
                   return (
                     <div
-                      className="h-32 w-32 bg-slate-200 rounded flex justify-center items-center "
+                      className="h-32 w-32 bg-slate-200 rounded flex justify-center items-center   "
                       key={imageUrl}
                     >
                       <img
@@ -140,7 +140,7 @@ const ProductDetails = () => {
             )}
           </div>
         </div>
-        {/* product detain */}
+        {/* product detail */}
         {loading ? (
           <div className="px-2 w-full flex flex-col gap-1">
             <p className="bg-slate-300 animate-pulse inline w-fit  font-bold px-16 py-3 rounded-full"></p>
@@ -169,7 +169,8 @@ const ProductDetails = () => {
             </div>
           </div>
         ) : (
-          <div className=" px-2 w-full flex flex-col gap-1">
+          <div className="container">
+            <div className=" lg:px-2 lg:w-full flex flex-col py-2 gap-1 h-[300px] w-[300px]  ">
             <p className="bg-green-200 text-red-600 inline w-fit  font-bold px-3 rounded-full">
               {data.brandName}
             </p>
@@ -203,10 +204,11 @@ const ProductDetails = () => {
               <p className="">{data?.description}</p>
             </div>
           </div>
+          </div>
         )}
       </div>
 
-      <div>
+      <div className=" ">
         {data?.category && (
           <VerticalProductCard
             category={data.category}

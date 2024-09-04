@@ -61,6 +61,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
   'https://www.electramart.ninja',
   'https://electramart.ninja'
 ];
