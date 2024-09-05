@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import ChangeUserRole from '../components/Change_user_role'
 import { CiEdit } from "react-icons/ci";
+import summaryApi from '../common/index.jsx';
 
 const AllUsers = () => {
   const [allUser, setAllUser] = useState([]);
@@ -16,7 +17,7 @@ const AllUsers = () => {
 
 
   const fetchAllUsers = async () => {
-const fetchData = await fetch('http://localhost:5000/api/all-Users',{
+const fetchData = await fetch(summaryApi.allUsers.url,{
   'method': 'GET',
   credentials: 'include',
 })
