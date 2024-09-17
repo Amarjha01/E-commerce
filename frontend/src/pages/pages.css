@@ -157,3 +157,7 @@
     margin: 5px 0px 0px 5px
     
 }
+
+.blob{
+    box-shadow: 0px 0px 50px 10px rgba(119, 15, 204, 0.2) ;
+}

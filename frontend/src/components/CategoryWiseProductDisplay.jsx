@@ -67,7 +67,7 @@ const handleAddToCart = async (e,id) => {
         ) : (
             data.map((product, index) => {
                 return (
-                  <Link to={"product/" + product?._id}
+                  <Link to={"/product/"+product?._id}
                     className="w-full max-w-[280px] md:max-w-[320px] min-w-[280px] md:min-w-[320px]  bg-white rounded-sm shadow-lg  cursor-pointer"
                     key={index + 1}
                   >

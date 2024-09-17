@@ -18,6 +18,10 @@ import addToCartController from '../controller/user/addToCart.js';
 import countAddToCartProduct from '../controller/user/countAddToCartProduct.js';
 import viewAddToCart from '../controller/user/viewAddToCart.js'
 import updateAddToCartProduct from '../controller/user/updateAddToCartProduct.js'
+import deleteAddToCartProduct from '../controller/user/deleteAddToCartProduct.js';
+import searchProduct from '../controller/product/searchProduct.js'
+import userAddress from '../controller/user/userAddress.js';
+import displayUserAddress from '../controller/user/displayUserAddress.js';
 // Set up routes
 router.post('/signup', usersignupcontroller);
 router.post('/signin', userSignInController);
@@ -35,5 +39,9 @@ router.post('/addtocart',authtoken, addToCartController);
 router.get('/countaddtocartproduct',authtoken, countAddToCartProduct);
 router.get('/cartDetail',authtoken, viewAddToCart);
 router.post('/updateCartProductQuantity',authtoken, updateAddToCartProduct);
+router.delete('/deleteCartProduct',authtoken, deleteAddToCartProduct);
+router.get('/search', searchProduct)
+router.post('/shippingAddress',authtoken, userAddress);
+router.get('/displayuseraddress',authtoken, displayUserAddress);
 
 export default router;

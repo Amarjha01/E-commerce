@@ -17,7 +17,7 @@ async function usersignupcontroller(req, res) {
     const hashpassword = await bcrypt.hash(password, salt);
 
     if (!hashpassword) {
-      console.log("Something is wrong");
+      console.log("Password not hashed");
     }
 
     const payload = {

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import paymentGetway from './pages/PaymentGetway'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import summaryApi from "./common/index";
@@ -11,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "./store/userSlice";
 function App() {
 const dispatch = useDispatch();
+const [subTotal, setSubTotal] = useState(0);
 const [cartProductCount, setCartProductCount] = useState(0);
 
   const fetchUserDetails = async () => {
@@ -43,6 +45,15 @@ const fetchUserAddToCart = async () => {
     fetchUserDetails();
     // user cart count
     fetchUserAddToCart()
+
+
+ // Function to receive subtotal price from Cart component
+ const handleSetSubtotalPrice = (price) => {
+  setSubTotal(price);  // Update subtotal price in the parent
+};
+
+
+
   }, []);
 
 
@@ -53,10 +64,12 @@ const fetchUserAddToCart = async () => {
         <ToastContainer position= 'top-center' />
        
           <Header />
+          
          <main className="min-h-[calc(100vh-118px)] pt-14">
-         <Outlet />
+         <Outlet  />
          </main>
           <Footer />
+         
         
       </context.Provider>
     </>

@@ -14,7 +14,7 @@ const viewAddToCart = async (req, res) => {
       error: false,
       data: cartDetails,
     });
-    console.log("cartDetails:", cartDetails);
+    // console.log("cartDetails:", cartDetails);
   } catch (error) {
     res.status(500).json({
       message: error?.message || error,

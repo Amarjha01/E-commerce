@@ -12,7 +12,9 @@ import Allproducts from "../pages/AllProducts";
 import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
-
+import SearchedProduct from '../pages/searchedProduct'
+import Address from '../pages/address'
+import PaymentGetway from '../pages/PaymentGetway'
 import App from "../App";
 
 const router = createBrowserRouter([
@@ -74,6 +76,18 @@ const router = createBrowserRouter([
       {
         path: "Product/:id",
         element: <ProductDetails />,
+      },
+      {
+        path: "searched",
+        element: <SearchedProduct />,
+      },
+      {
+        path: "address",
+        element: <Address />,
+      },
+      {
+        path: "paymentGetway",
+        element: <PaymentGetway />,
       },
     ],
   },

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { LuUserCircle2 } from "react-icons/lu";
 import { MdShoppingCart } from "react-icons/md";
@@ -13,6 +13,7 @@ import Context from "../context/index";
 
 const Header = () => {
   const context = useContext(Context);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
   const handleLogout = async () => {
@@ -30,9 +31,15 @@ const Header = () => {
       toast.error(data.err);
     }
   };
-  console.log('header add to cart count:', context.cartProductCount)
   const [menueDisplay, setMenueDisplay] = React.useState(false);
-
+const handleSearch = (e)=>{
+const {value} = e.target;
+if(value){
+  navigate(`/searched?q=${value}`)
+}else{
+  navigate('/')
+}
+}
   return (
     <>
       <header className="fixed z-40">
@@ -48,6 +55,7 @@ const Header = () => {
               className="headerinput"
               type="text"
               placeholder="Search..."
+              onChange={handleSearch}
             />
             <button className="button">
               <IoSearch className="searchicon" />
