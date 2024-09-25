@@ -1,5 +1,5 @@
-const backendDomain = 'http://localhost:5000';
-// const backendDomain = 'https://api.electramart.ninja';
+// const backendDomain = 'http://localhost:5000';
+const backendDomain = 'https://api.electramart.ninja';
 
 
 const summaryApi = {
