@@ -22,6 +22,8 @@ import deleteAddToCartProduct from '../controller/user/deleteAddToCartProduct.js
 import searchProduct from '../controller/product/searchProduct.js'
 import userAddress from '../controller/user/userAddress.js';
 import displayUserAddress from '../controller/user/displayUserAddress.js';
+import paymentGetway from '../controller/paymentGetway.js';
+import onSuccessfullPayment from '../controller/user/onSuccessfullPayment.js';
 // Set up routes
 router.post('/signup', usersignupcontroller);
 router.post('/signin', userSignInController);
@@ -43,5 +45,7 @@ router.delete('/deleteCartProduct',authtoken, deleteAddToCartProduct);
 router.get('/search', searchProduct)
 router.post('/shippingAddress',authtoken, userAddress);
 router.get('/displayuseraddress',authtoken, displayUserAddress);
+router.post('/pay' , paymentGetway);
+router.delete('/onsuccessfullpayment' ,authtoken, onSuccessfullPayment);
 
 export default router;

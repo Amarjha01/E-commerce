@@ -1,5 +1,5 @@
-// const backendDomain = 'http://localhost:5000';
-const backendDomain = 'https://api.electramart.ninja';
+const backendDomain = 'http://localhost:5000';
+// const backendDomain = 'https://api.electramart.ninja';
 
 
 const summaryApi = {
@@ -67,6 +67,10 @@ const summaryApi = {
         url: `${backendDomain}/api/updateCartProductQuantity`,
         method: 'post'
     },
+    paymentGetway: {
+        url: `${backendDomain}/api/pay`,
+        method: 'post'
+    },
     deleteCartProduct: {
         url: `${backendDomain}/api/deleteCartProduct`,
         method: 'delete'
@@ -82,6 +86,10 @@ const summaryApi = {
     userShippingAddress: {
         url: `${backendDomain}/api/shippingAddress`,
         method: 'post'
+    },
+    onSuccessfullPayment: {
+        url: `${backendDomain}/api/onsuccessfullpayment`,
+        method: 'delete'
     },
 }
 

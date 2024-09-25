@@ -20,6 +20,7 @@ const responseData = await fetchCart.json();
 
 if(responseData.success){
   toast.success(responseData.message);
+  
   // fetchUserAddToCart();
 }else if(responseData.warning){
   toast.warning(responseData.message);

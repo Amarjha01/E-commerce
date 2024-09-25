@@ -16,6 +16,7 @@ import SearchedProduct from '../pages/searchedProduct'
 import Address from '../pages/address'
 import PaymentGetway from '../pages/PaymentGetway'
 import App from "../App";
+import OnSuccessPayment from "../pages/OnSuccessPayment";
 
 const router = createBrowserRouter([
   {
@@ -85,9 +86,10 @@ const router = createBrowserRouter([
         path: "address",
         element: <Address />,
       },
+      
       {
-        path: "paymentGetway",
-        element: <PaymentGetway />,
+        path: "success",
+        element: <OnSuccessPayment />,
       },
     ],
   },

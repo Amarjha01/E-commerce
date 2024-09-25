@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "./store/userSlice";
 function App() {
 const dispatch = useDispatch();
-const [subTotal, setSubTotal] = useState(0);
 const [cartProductCount, setCartProductCount] = useState(0);
 
   const fetchUserDetails = async () => {

@@ -3,12 +3,58 @@ import summaryApi from "../common/index.jsx";
 import Context from "../context/index.js";
 import currency from "../helpers/Currency.jsx";
 import { MdDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
-import PaymentGetway from "./PaymentGetway.jsx";
+// import { Link } from "react-router-dom";
+// import PaymentGetway from "./PaymentGetway.jsx";
+
+const onSuccessPayment = async (req, res) => {
+  const response = await fetch(summaryApi.onSuccessfullPayment.url, {
+    method: summaryApi.onSuccessfullPayment.method,
+    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+  }
+
+
+  const initiatePayment = async () => {
+    try {
+      // Await the fetch to complete
+      const response = await fetch(summaryApi.paymentGetway.url, {
+        method: summaryApi.paymentGetway.method,
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        }
+      });
+  
+      // Parse the response as JSON
+      const responseData = await response.json();
+  
+      // Log the parsed response data
+      console.log('responseData:', responseData);
+  
+      // If the response contains a redirect URL, perform the redirection
+      if (responseData.success && responseData.url) {
+        const redirectUrl = responseData.url;
+        console.log('Redirecting to:', redirectUrl);
+        
+        // Perform the redirection
+        window.location.href = redirectUrl;
+        onSuccessPayment();
+        Cart();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
 const Cart = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isEmptyCart, setIsEmptyCart] = useState(false);
   const context = useContext(Context);
 
   const itemsInCart = context.cartProductCount;
@@ -30,6 +76,11 @@ const Cart = () => {
     if (responseData.success) {
       setData(responseData.data);
       setLoading(false);
+      if (responseData.data.length === 0) {
+        setIsEmptyCart(true);
+      } else {
+        setIsEmptyCart(false);
+      }
     }
 
     console.log("cartData:", responseData.data);
@@ -97,9 +148,20 @@ const Cart = () => {
     context.fetchUserAddToCart();
   };
   const totalQnty = data.reduce((prev, current) => prev + current.quantity, 0);
-  const tptalPrice = data.reduce((prev, current) => prev + current.productId.sellingprice * current.quantity,0);
+  const totalPrice = data.reduce((prev, current) => prev + current.productId.sellingprice * current.quantity,0);
+  const priceBeforeTax = totalPrice - (18/100)*totalPrice;
+  const total = totalPrice  + 40 - 200;
 
-  
+    // Render empty cart message if the cart is empty
+    if (isEmptyCart) {
+      return (
+        <div className="container mx-auto text-center text-lg my-3">
+          <p className="bg-white py-4">Your cart is empty</p>
+        </div>
+      );
+    }
+
+
   return (
     <Context.Provider value={totalQnty}>
      
@@ -201,38 +263,49 @@ const Cart = () => {
             {loading ? (
               <div className="h-36 bg-slate-300 border-slate-200 animate-pulse"></div>
             ) : (
-              <div className="h-36 bg-white  ">
-                <h2 className="text-white bg-slate-500 py-1 px-4">Summary</h2>
-                <div className=" text-lg font-medium text-slate-500">
-                  <div className=" flex justify-between py-1 px-4">
-                    <p>Quantity</p>
-                    <p>{totalQnty}</p>
-                  </div>
-                  <div className="flex justify-between py-1 px-4 ">
-                    <p>Total Price :</p>
-                    <p className="text-green-700 font-bold">
-                      {currency(tptalPrice)}
-                    </p>
-                  </div>
-                </div>
-                <Link to={"/address"}>
-                  <button className=" py-2 bg-blue-600 text-white  w-full">
-                    Select Address
-                  </button>
-                </Link>
-              </div>
+              <div className="w-64 relative h-96">
+              <div className="h-10 w-10 rounded-full absolute left-5 top-5 bg-purple-600 blur-2xl"></div>
+              <div className="h-20 w-20 rounded-full absolute left-5 top-5 bg-purple-600 blur-2xl"></div>
+              {/* <div className="h-20 w-20 rounded-full absolute  bg-purple-600 blur-2xl opacity-20"></div> */}
+             <div className="bg-gray-200 rounded-lg w-full h-full p-4 ">
+               <p>You're paying Before Tax</p>
+               <div className="text-3xl text-black font-bold m-2">{currency(priceBeforeTax)}</div>
+               <div className="flex flex-col w-full gap-7 mt-12 ">
+                 <div className="flex justify-between">
+                   <p className=" text-base font-semibold">GST-18%</p>
+                   
+                   <p className="text-base font-medium">{currency(totalPrice-priceBeforeTax)}</p>
+                 </div>
+                 <div className="flex justify-between">
+                   <p className=" text-base font-semibold">Shipping Charge</p>
+                   <p className="text-base font-medium" >{currency(40)}</p>
+                 </div>
+                 <div className="flex justify-between">
+                   <p className=" text-base font-semibold"> Discounts & Offers</p>
+                   <p className="text-base font-medium" >{currency(200)}</p>
+                 </div>
+               </div>
+               <div className="h-[1px] w-full bg-gray-500 mt-8"></div>
+               <div className="mt-7 flex justify-between ml-2">
+                 <p className="text-base font-semibold">Total</p>
+                 <p className="text-base font-medium">{currency(total)}</p>
+               </div>
+             </div>
+            
+             
+           </div>
             )}
-            <Link to={'/paymentGetway'}>
+            {/* <Link to={'/paymentGetway'}>
             <button className="mt-5 w-48 h-10 bg-purple-500 rounded-md ">Pay Now</button>
-           
-          </Link>
+          </Link> */}
+           <button onClick={()=>{initiatePayment()}} className="mt-5 w-64 h-10 bg-purple-500 rounded-md ">Pay Now</button>
           </div>
          
 
         </div>
       </div>
       
-      
+     
     </Context.Provider>
   );
 };

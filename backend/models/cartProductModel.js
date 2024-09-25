@@ -11,6 +11,6 @@ const addToCart = mongoose.Schema({
     timestamps: true
 })
 
-const addToCartModel = mongoose.model('addToCart ', addToCart);
+const addToCartModel = mongoose.model('addToCart', addToCart);
 
 export default addToCartModel;

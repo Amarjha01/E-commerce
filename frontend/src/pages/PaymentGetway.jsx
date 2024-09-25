@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import Context from "../context/index"
 import currency from "../helpers/Currency.jsx";
-import blob from "../asset/randum/blob.svg"
+// import blob from "../asset/randum/blob.svg"
 import summaryApi from "../common";
 import { useSelector } from "react-redux";
 
@@ -13,8 +13,11 @@ import { useSelector } from "react-redux";
 
 
 const PaymentGetway = () => {
+  const [url , setUrl] = useState([])
+  console.log(url)
   const [data, setData] = useState([])
-
+  const[cartItem, setCartItem] = useState([])
+ console.log('data:',data)
   const {
     register,
     handleSubmit,
@@ -22,7 +25,41 @@ const PaymentGetway = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    setData(data);
+    console.log('Form Data:', data);
+  
+    try {
+      // Await the fetch to complete
+      const response = await fetch(summaryApi.paymentGetway.url, {
+        method: summaryApi.paymentGetway.method,
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      // Parse the response as JSON
+      const responseData = await response.json();
+  
+      // Log the parsed response data
+      console.log('responseData:', responseData);
+  
+      // If the response contains a redirect URL, perform the redirection
+      if (responseData.success && responseData.url) {
+        const redirectUrl = responseData.url;
+        console.log('Redirecting to:', redirectUrl);
+        
+        // Perform the redirection
+        window.location.href = redirectUrl;
+        onSuccessPayment();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
 
 
 
@@ -36,36 +73,36 @@ const PaymentGetway = () => {
     });
     const responseData = await response.json();
     if (responseData.success) {
-      setData(responseData.data);
+      setCartItem(responseData.data);
     }
   };
   useEffect(() => {
     fetchdata();
   },[])
-  const tptalPrice = data.reduce((prev, current) => prev + current.productId.sellingprice * current.quantity,0);
+  const tptalPrice = cartItem.reduce((prev, current) => prev + current.productId.sellingprice * current.quantity,0);
 
 const total = tptalPrice + (18/100)*tptalPrice + 40 - 200;
 
 const user = useSelector((state) => state?.user?.user);
-console.log('user_id-payment', user)
+
   return (
    user && (
-    <div className="container mx-auto mt-4 flex justify-center items-center g-green-400 overflow-hidden ">
-    <div className="-inset-2/4 p-12 bg-white lg:flex lg:flex-row flex flex-col gap-5">
+    <div className="container mx-auto my-6 flex justify-center items-center g-green-400 overflow-hidden">
+    <div className="-inset-2/4 p-12 bg-white lg:flex lg:flex-row flex flex-col gap-5 ">
       <div className="flex flex-col w-96">
         <h1 className="text-xl font-bold">Let's make Payment</h1>
         <p className="w-96  text-xs mt-5">Input your card details to make payment. You will be redirected to your banks authorization page. </p>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col mt-10 gap-4 w-72">
         <div className="flex flex-col">
-        <label className="text-sm text-gray-700 ">Cardholder's Name</label>
-        <input {...register("cardholdersName", { required: true })} className="bg-slate-200 border-b border-purple-500 outline-none p-2 text-purple-600 rounded-md h-8 w-72" />
-        {errors.cardholdersName && <span className=" text-red-600 mb-2 text-xs">This field is required</span>}
+        <label className="text-sm text-gray-700 ">Full Name</label>
+        <input {...register("fullName", { required: true })} className="bg-slate-200 border-b border-purple-500 outline-none p-2 text-purple-600 rounded-md h-8 w-72" />
+        {errors.fullName && <span className=" text-red-600 mb-2 text-xs">This field is required</span>}
         </div>
        <div className=" flex flex-col">
-       <label className="text-sm text-gray-700" >Card number</label>
-       <input type="text"  {...register("cardNumber", { required: true ,  pattern: /^\d{13,19}$/ })} className="bg-slate-200 border-b border-purple-500 outline-none p-2 text-purple-600 rounded-md h-8 w-72" />
-       {errors.cardNumber && <span className=" text-red-600 mb-2 text-xs">This field is required</span>}
+       <label className="text-sm text-gray-700" >Phone number</label>
+       <input type="text"  {...register("phonenumber", { required: true  })} className="bg-slate-200 border-b border-purple-500 outline-none p-2 text-purple-600 rounded-md h-8 w-72" />
+       {errors.phonenumber && <span className=" text-red-600 mb-2 text-xs">This field is required</span>}
        </div>
        <div className="flex justify-between  w-full">
        <div className="flex flex-col">
